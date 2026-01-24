@@ -1,4 +1,4 @@
-describe('My First Test', () => {
+describe('Test', () => {
   it('clicks the link "type"', () => {
     cy.visit('https://example.cypress.io')
 
