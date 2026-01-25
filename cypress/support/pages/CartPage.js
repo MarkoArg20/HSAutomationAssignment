@@ -1,9 +1,14 @@
+import { CartHelper } from '../helpers/TempHelper'
+
 export class CartPage {
     cartBtn = '[data-test="shopping-cart-link"]'
     cartHeader = '[data-test="title"]'
     cartTitle = '[data-test="title"]'
-    itemQuantity = '[data-test="item-quantity"]' // loop through if more elements
+    itemQuantity = '[data-test="item-quantity"]' 
     btnRemoveItem = 'button.cart_button' //'button:contains("Remove")'
+    inventoryItem = '[data-test="inventory-item"]'
+
+    cartHelper = new CartHelper()
 
     openCart() {
         cy.get(this.cartBtn).click()
@@ -23,4 +28,14 @@ export class CartPage {
             cy.wrap($btn).should('be.visible').and('contain', 'Remove')
         })
     }
+
+    verifyProductInCart(productName) {
+        return this.cartHelper.getCartProductsData().then((products) => {
+            const product = products.find(p => p.name === productName)
+            expect(product).to.exist
+        })
+
+    }
+
+    
 }

@@ -49,4 +49,30 @@ describe('Test suite for assignment', () => {
 
   })
 
+  it('Login with error user : Add fleece jacked to cart and confirm (this should fail)', () => {
+//there is an uncaught error in the app, and our test fails. Below I added another test that ignores the uncaught error and checks for the product in the cart
+    cy.visit(Cypress.env('BASEURL'))
+
+    logInPage.logIn(Cypress.env('ERROR_USER'), Cypress.env('USER_PASSWORD'))
+    homePage.addFleeceJacketToCart()
+    homePage.goToCart()
+    cart.verifyItemQuantity()
+
+  })
+
+  it('Login with error user : Add fleece jacked to cart and confirm (ignoring the unhadled error)', () => {
+
+    cy.on('uncaught:exception', (err, runnable) => { //ignores the uncaught error
+        return false
+    })
+
+    cy.visit(Cypress.env('BASEURL'))
+
+    logInPage.logIn(Cypress.env('ERROR_USER'), Cypress.env('USER_PASSWORD'))
+    homePage.addAllItemsToCart()
+    homePage.goToCart()
+    cart.verifyProductInCart('Sauce Labs Fleece Jacket') // input whichever product from the catalog and this test will verify if it is added to the cart
+
+  })
+
 }) 

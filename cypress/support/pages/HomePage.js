@@ -21,6 +21,10 @@ export class HomePage {
         cy.get(this.btnAddToCartOnesie).click()
     }
 
+    addFleeceJacketToCart() {
+    cy.get(this.btnAddToCartFleeceJacket).click()
+    }
+
     goToCart() {
         cy.get(this.cartBtn).click()
     }
