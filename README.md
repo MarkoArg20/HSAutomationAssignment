@@ -29,8 +29,10 @@ RUN THE TESTS:
 
 3. Run the tests
 ```bash
--npx cypress open
+npx cypress open
+OR
+npx cypress run --spec "cypress/tests/testCases.js" 
 ```
- click on E2E testing - choose browser - Start testing - click the file testCases.js
+If you choose the first option: click on E2E testing - choose browser - Start testing - click the file testCases.js
 
 
