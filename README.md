@@ -29,7 +29,8 @@ RUN THE TESTS:
 
 3. Run the tests
 ```bash
--npx cypress open - click on e2e testing - choose browser - click the file testCases.js
+-npx cypress open
 ```
+ click on E2E testing - choose browser - Start testing - click the file testCases.js
 
 
