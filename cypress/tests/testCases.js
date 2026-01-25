@@ -3,27 +3,31 @@ import { HomePage } from '../support/pages/HomePage'
 import { CartPage } from '../support/pages/CartPage'
 
 
-describe('Test suite for assignment', () => {
+describe('Test suite', () => {
 
-    const logInPage = new LogInPage()
-    const homePage = new HomePage()
-    const cart = new CartPage()
+  const logInPage = new LogInPage()
+  const homePage = new HomePage()
+  const cart = new CartPage()
 
-  it('Log in succesfully', () => {
-
+  beforeEach(() => {
     cy.visit(Cypress.env('BASEURL'))
+  })
+
+
+  it('Login as standard user : Confirm login and check the URL', () => {
+
     logInPage.logIn(Cypress.env('STANDARD_USER'), Cypress.env('USER_PASSWORD'))
     logInPage.verifySuccesfullLogIn()
-    logInPage.verifyUrlContains('/inventory')
+    logInPage.verifyUrlContains('/inventory') //in the parameter add part of the url that you want to assert 
     logInPage.logOut()
 
   })
 
 
-  it('Log in succesfully add a product, verify qty and delete btn ', () => {
+  it('Login as standard user : Add item to cart, verify quantity, check remove button visibility', () => {
 
-    cy.visit(Cypress.env('BASEURL'))
     logInPage.logIn(Cypress.env('STANDARD_USER'), Cypress.env('USER_PASSWORD'))
+    logInPage.verifySuccesfullLogIn()
     homePage.addAllItemsToCart()
     cart.openCart()
     cart.verifyItemQuantity()
@@ -32,47 +36,45 @@ describe('Test suite for assignment', () => {
 
   })
 
-  it('Log in as a problem user - assert onesie img is displayed', () => {
+  it('Login as problem user : Check that the onesie image is shown as the source for the onesie', () => {
 
-    cy.visit(Cypress.env('BASEURL'))
     logInPage.logIn(Cypress.env('PROBLEM_USER'), Cypress.env('USER_PASSWORD'))
+    logInPage.verifySuccesfullLogIn()
     homePage.assertOnesieImg('red-onesie') //if 'sl-404' its put in this parameter the test will pass (see the method why)
-
+     logInPage.logOut()
   })
 
-  it('Log in as a locked user and confirm error is shown', () => {
-
-    cy.visit(Cypress.env('BASEURL'))
+  it('Login with locked user : Login with this user and confirm error is displayed', () => {
 
     logInPage.logIn(Cypress.env('LOCKED_USER'), Cypress.env('USER_PASSWORD'))
     logInPage.verifyErrorMessageIsDisplayedForLockedUser()
 
   })
 
-  it('Login with error user : Add fleece jacked to cart and confirm (this should fail)', () => {
+  it('Login with error user : Add fleece jacked to cart and confirm', () => {
 //there is an uncaught error in the app, and our test fails. Below I added another test that ignores the uncaught error and checks for the product in the cart
-    cy.visit(Cypress.env('BASEURL'))
 
     logInPage.logIn(Cypress.env('ERROR_USER'), Cypress.env('USER_PASSWORD'))
+    logInPage.verifySuccesfullLogIn()
     homePage.addFleeceJacketToCart()
     homePage.goToCart()
     cart.verifyItemQuantity()
+    logInPage.logOut()
 
   })
 
   it('Login with error user : Add fleece jacked to cart and confirm (ignoring the unhadled error)', () => {
 
     cy.on('uncaught:exception', (err, runnable) => { //ignores the uncaught error
-        return false
+      return false
     })
 
-    cy.visit(Cypress.env('BASEURL'))
-
     logInPage.logIn(Cypress.env('ERROR_USER'), Cypress.env('USER_PASSWORD'))
+    logInPage.verifySuccesfullLogIn()
     homePage.addAllItemsToCart()
     homePage.goToCart()
     cart.verifyProductInCart('Sauce Labs Fleece Jacket') // input whichever product from the catalog and this test will verify if it is added to the cart
-
+    logInPage.logOut()
   })
 
 }) 
