@@ -1,10 +1,13 @@
-import { LogIn } from '../support/pages/LogInPage'
+import { LogInPage } from '../support/pages/LogInPage'
+import { HomePage } from '../support/pages/HomePage'
+import { CartPage } from '../support/pages/CartPage'
 
 
+describe('Test suite for assignment', () => {
 
-describe('First test case ', () => {
-
-    const logInPage = new LogIn()
+    const logInPage = new LogInPage()
+    const homePage = new HomePage()
+    const cart = new CartPage()
 
   it('Log in succesfully', () => {
 
@@ -13,6 +16,29 @@ describe('First test case ', () => {
     logInPage.logIn(Cypress.env('STANDARD_USER'), Cypress.env('USER_PASSWORD'))
     logInPage.verifySuccesfullLogIn()
     logInPage.verifyUrlContains('/inventory')
+    logInPage.logOut()
 
   })
+
+
+  it('Log in succesfully add a product, verify qty and delete btn ', () => {
+
+    cy.visit(Cypress.env('BASEURL'))
+    logInPage.logIn(Cypress.env('STANDARD_USER'), Cypress.env('USER_PASSWORD'))
+    homePage.addAllItemsToCart()
+    cart.openCart()
+    cart.verifyItemQuantity()
+    cart.verifyAllRemoveButtons()
+    logInPage.logOut()
+
+  })
+
+  it('Log in as a problem user - assert onesie img is displayed', () => {
+
+    cy.visit(Cypress.env('BASEURL'))
+    logInPage.logIn(Cypress.env('PROBLEM_USER'), Cypress.env('USER_PASSWORD'))
+    homePage.assertOnesieImg('red-onesie') //if 'sl-404' its put in this parameter the test will pass (see the method why)
+
+  })
+
 }) 
