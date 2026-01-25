@@ -12,7 +12,6 @@ describe('Test suite for assignment', () => {
   it('Log in succesfully', () => {
 
     cy.visit(Cypress.env('BASEURL'))
-
     logInPage.logIn(Cypress.env('STANDARD_USER'), Cypress.env('USER_PASSWORD'))
     logInPage.verifySuccesfullLogIn()
     logInPage.verifyUrlContains('/inventory')
@@ -38,6 +37,15 @@ describe('Test suite for assignment', () => {
     cy.visit(Cypress.env('BASEURL'))
     logInPage.logIn(Cypress.env('PROBLEM_USER'), Cypress.env('USER_PASSWORD'))
     homePage.assertOnesieImg('red-onesie') //if 'sl-404' its put in this parameter the test will pass (see the method why)
+
+  })
+
+  it('Log in as a locked user and confirm error is shown', () => {
+
+    cy.visit(Cypress.env('BASEURL'))
+
+    logInPage.logIn(Cypress.env('LOCKED_USER'), Cypress.env('USER_PASSWORD'))
+    logInPage.verifyErrorMessageIsDisplayedForLockedUser()
 
   })
 
