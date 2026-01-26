@@ -5,7 +5,7 @@ export class LogInPage {
     products = '[data-test="inventory-list"]'
     btnOpenMenu = 'button#react-burger-menu-btn'
     btnLogOut = '[data-test="logout-sidebar-link"]'
-    errorMessageLockedUser = '[data-test="error-button"]'
+    validationInvalidLogin = 'button.error-button'
 
     logIn(username, password) {
         cy.get(this.username).type(username)
@@ -21,9 +21,11 @@ export class LogInPage {
         cy.url().should('include', Url)
     }
 
-    verifyErrorMessageIsDisplayedForLockedUser() {
-        cy.get(this.errorMessageLockedUser).should('be.visible')
+    verifyValidationOnInvalidLogin() {
+        cy.get(this.validationInvalidLogin).should('be.visible')
     }
+
+   
 
     logOut() {
         cy.get(this.btnOpenMenu).contains('Open Menu').click()  

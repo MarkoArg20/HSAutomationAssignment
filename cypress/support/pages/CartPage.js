@@ -3,9 +3,8 @@ import { CartHelper } from '../helpers/TempHelper'
 export class CartPage {
     cartBtn = '[data-test="shopping-cart-link"]'
     cartHeader = '[data-test="title"]'
-    cartTitle = '[data-test="title"]'
     itemQuantity = '[data-test="item-quantity"]' 
-    btnRemoveItem = 'button.cart_button' //'button:contains("Remove")'
+    btnRemoveItem = 'button:contains("Remove")' //'button.cart_button'
     inventoryItem = '[data-test="inventory-item"]'
 
     cartHelper = new CartHelper()

@@ -2,17 +2,19 @@ import { LogInPage } from '../support/pages/LogInPage'
 import { HomePage } from '../support/pages/HomePage'
 import { CartPage } from '../support/pages/CartPage'
 
+let logInPage
+let homePage
+let cartPage
+
+beforeEach(() => {
+  logInPage = new LogInPage()
+  homePage = new HomePage()
+  cartPage = new CartPage()
+  cy.visit(Cypress.env('BASEURL'))
+})
+
 
 describe('Test suite', () => {
-
-  const logInPage = new LogInPage()
-  const homePage = new HomePage()
-  const cart = new CartPage()
-
-  beforeEach(() => {
-    cy.visit(Cypress.env('BASEURL'))
-  })
-
 
   it('Login as standard user : Confirm login and check the URL', () => {
 
@@ -29,9 +31,9 @@ describe('Test suite', () => {
     logInPage.logIn(Cypress.env('STANDARD_USER'), Cypress.env('USER_PASSWORD'))
     logInPage.verifySuccesfullLogIn()
     homePage.addAllItemsToCart()
-    cart.openCart()
-    cart.verifyItemQuantity()
-    cart.verifyAllRemoveButtonsAreDisplayed()
+    cartPage.openCart()
+    cartPage.verifyItemQuantity()
+    cartPage.verifyAllRemoveButtonsAreDisplayed()
     logInPage.logOut()
 
   })
@@ -47,7 +49,7 @@ describe('Test suite', () => {
   it('Login with locked user : Login with this user and confirm error is displayed', () => {
 
     logInPage.logIn(Cypress.env('LOCKED_USER'), Cypress.env('USER_PASSWORD'))
-    logInPage.verifyErrorMessageIsDisplayedForLockedUser()
+    logInPage.verifyValidationOnInvalidLogin()
 
   })
 
@@ -58,7 +60,7 @@ describe('Test suite', () => {
     logInPage.verifySuccesfullLogIn()
     homePage.addFleeceJacketToCart()
     homePage.goToCart()
-    cart.verifyItemQuantity()
+    cartPage.verifyItemQuantity()
     logInPage.logOut()
 
   })
@@ -73,8 +75,51 @@ describe('Test suite', () => {
     logInPage.verifySuccesfullLogIn()
     homePage.addAllItemsToCart()
     homePage.goToCart()
-    cart.verifyProductInCart('Sauce Labs Fleece Jacket') // input whichever product from the catalog and this test will verify if it is added to the cart
+    cartPage.verifyProductInCart('Sauce Labs Fleece Jacket') // input whichever product from the catalog and this test will verify if it is added to the cart
     logInPage.logOut()
+
+  })
+
+  it('Verify succesfull adding of all the products in the cart  ', () => {
+
+    logInPage.logIn(Cypress.env('STANDARD_USER'), Cypress.env('USER_PASSWORD'))
+    logInPage.verifySuccesfullLogIn()
+    homePage.addAllItemsToCart()
+    homePage.goToCart()
+    cartPage.verifyProductInCart('Sauce Labs Backpack')
+    cartPage.verifyProductInCart('Sauce Labs Bike Light')
+    cartPage.verifyProductInCart('Sauce Labs Fleece Jacket')
+    cartPage.verifyProductInCart('Sauce Labs Bolt T-Shirt')
+    cartPage.verifyProductInCart('Sauce Labs Onesie')
+    logInPage.logOut()
+
   })
 
 }) 
+
+describe('Login test cases', () => {
+
+
+  it('Try to log in with wrong password and correct username', () => {
+
+    logInPage.logIn(Cypress.env('STANDARD_USER'), Cypress.env('WRONG_PASSWORD'))
+    logInPage.verifyValidationOnInvalidLogin()
+
+  })
+
+  it('Try to log in with wrong username and correct password', () => {
+
+    logInPage.logIn(Cypress.env('WRONG_USERNAME'), Cypress.env('USER_PASSWORD'))
+    logInPage.verifyValidationOnInvalidLogin()
+
+  })
+
+  it('Try to log in with wrong username and wrong password', () => {
+
+    logInPage.logIn(Cypress.env('WRONG_USERNAME'), Cypress.env('WRONG_PASSWORD'))
+    logInPage.verifyValidationOnInvalidLogin()
+
+  })
+
+
+})
