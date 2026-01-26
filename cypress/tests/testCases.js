@@ -7,10 +7,12 @@ let homePage
 let cartPage
 
 beforeEach(() => {
+
   logInPage = new LogInPage()
   homePage = new HomePage()
   cartPage = new CartPage()
   cy.visit(Cypress.env('BASEURL'))
+
 })
 
 
@@ -30,7 +32,7 @@ describe('Test suite', () => {
 
     logInPage.logIn(Cypress.env('STANDARD_USER'), Cypress.env('USER_PASSWORD'))
     logInPage.verifySuccesfullLogIn()
-    homePage.addAllItemsToCart()
+    homePage.addAllItemsToCart()  
     cartPage.openCart()
     cartPage.verifyItemQuantity()
     cartPage.verifyAllRemoveButtonsAreDisplayed()
@@ -42,8 +44,9 @@ describe('Test suite', () => {
 
     logInPage.logIn(Cypress.env('PROBLEM_USER'), Cypress.env('USER_PASSWORD'))
     logInPage.verifySuccesfullLogIn()
-    homePage.assertOnesieImg('red-onesie') //if 'sl-404' is put in this parameter the test will pass (see the method why)
+    homePage.assertOnesieImg('red-onesie') //if 'sl-404' is put in this parameter the test will pass (see the method how)
     logInPage.logOut()
+
   })
 
   it('Login with locked user : Login with this user and confirm error is displayed', () => {
@@ -54,6 +57,7 @@ describe('Test suite', () => {
   })
 
   it('Login with error user : Add fleece jacked to cart and confirm', () => {
+
 //there is an uncaught error in the app, and our test fails. Below I added another test that ignores the uncaught error and checks for the product in the cart
 
     logInPage.logIn(Cypress.env('ERROR_USER'), Cypress.env('USER_PASSWORD'))
@@ -75,7 +79,7 @@ describe('Test suite', () => {
     logInPage.verifySuccesfullLogIn()
     homePage.addAllItemsToCart()
     homePage.goToCart()
-    cartPage.verifyProductInCart('Sauce Labs Fleece Jacket') // input whichever product from the catalog and this test will verify if it is added to the cart
+    cartPage.verifyProductInCart('Sauce Labs Fleece Jacket') // input whichever product from the catalog and this test will verify if it is added succesfully to the cart
     logInPage.logOut()
 
   })
@@ -99,27 +103,32 @@ describe('Test suite', () => {
 
 describe('Login test cases', () => {
 
+  afterEach(() => {
+    logInPage.verifyValidationOnInvalidLogin()
+  })
+
 
   it('Try to log in with wrong password and correct username', () => {
 
     logInPage.logIn(Cypress.env('STANDARD_USER'), Cypress.env('WRONG_PASSWORD'))
-    logInPage.verifyValidationOnInvalidLogin()
 
   })
 
   it('Try to log in with wrong username and correct password', () => {
 
     logInPage.logIn(Cypress.env('WRONG_USERNAME'), Cypress.env('USER_PASSWORD'))
-    logInPage.verifyValidationOnInvalidLogin()
 
   })
 
   it('Try to log in with wrong username and wrong password', () => {
 
     logInPage.logIn(Cypress.env('WRONG_USERNAME'), Cypress.env('WRONG_PASSWORD'))
-    logInPage.verifyValidationOnInvalidLogin()
 
   })
 
+ // it('Try to access the cart without loging in', () => {
 
+ //   cy.visit(Cypress.env('CART_URL'))
+
+ // })
 })

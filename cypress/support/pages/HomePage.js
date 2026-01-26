@@ -1,11 +1,10 @@
 export class HomePage {
     products = '[data-test="inventory-list"]'
-    btnAddToCartBackPack = '[data-test="add-to-cart-sauce-labs-backpack"]' // maybe a better way with something dynamic for add to cart a random element
+    btnAddToCartBackPack = '[data-test="add-to-cart-sauce-labs-backpack"]' 
     btnAddToCartBikeLight = '[data-test="add-to-cart-sauce-labs-bike-light"]'
     btnAddToCartBoltTshirt = '[data-test="add-to-cart-sauce-labs-bolt-t-shirt"]'
     btnAddToCartFleeceJacket = '[data-test="add-to-cart-sauce-labs-fleece-jacket"]'
-    btnAddToCartOnesie = '[data-test="add-to-cart-sauce-labs-onesie"]'
-    // btnAddToCartTShirt = child element ?  
+    btnAddToCartOnesie = '[data-test="add-to-cart-sauce-labs-onesie"]' 
     cartBtn = '[data-test="shopping-cart-link"]'
     imgOnesie = '[data-test="inventory-item-sauce-labs-onesie-img"]'
 

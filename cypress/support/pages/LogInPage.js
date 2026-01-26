@@ -25,8 +25,6 @@ export class LogInPage {
         cy.get(this.validationInvalidLogin).should('be.visible')
     }
 
-   
-
     logOut() {
         cy.get(this.btnOpenMenu).contains('Open Menu').click()  
         cy.get(this.btnLogOut).click() 
