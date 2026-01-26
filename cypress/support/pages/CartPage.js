@@ -23,7 +23,7 @@ export class CartPage {
         })
     }
 
-    verifyAllRemoveButtons() {
+    verifyAllRemoveButtonsAreDisplayed() {
         cy.get(this.btnRemoveItem).each(($btn) => {
             cy.wrap($btn).should('be.visible').and('contain', 'Remove')
         })

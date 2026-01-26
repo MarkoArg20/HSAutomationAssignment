@@ -31,7 +31,7 @@ describe('Test suite', () => {
     homePage.addAllItemsToCart()
     cart.openCart()
     cart.verifyItemQuantity()
-    cart.verifyAllRemoveButtons()
+    cart.verifyAllRemoveButtonsAreDisplayed()
     logInPage.logOut()
 
   })
@@ -40,8 +40,8 @@ describe('Test suite', () => {
 
     logInPage.logIn(Cypress.env('PROBLEM_USER'), Cypress.env('USER_PASSWORD'))
     logInPage.verifySuccesfullLogIn()
-    homePage.assertOnesieImg('red-onesie') //if 'sl-404' its put in this parameter the test will pass (see the method why)
-     logInPage.logOut()
+    homePage.assertOnesieImg('red-onesie') //if 'sl-404' is put in this parameter the test will pass (see the method why)
+    logInPage.logOut()
   })
 
   it('Login with locked user : Login with this user and confirm error is displayed', () => {
