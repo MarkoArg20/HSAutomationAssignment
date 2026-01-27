@@ -1,5 +1,5 @@
 # HSAutomationAssignment
-A cypress automation framework with JavaScript with Page Object Model deisgn pattern.
+A cypress automation framework with JavaScript and Page Object Model deisgn pattern.
 
 INSTALLATION
 
@@ -18,21 +18,23 @@ RUN THE TESTS:
 ```bash
 npm install cypress --save-dev
 ```
-2. Create a .cypress.env.json file in the root of the project with the content bellow and add it in the .gitignore so it wont be pushed on github
-"BASEURL" : "https://www.saucedemo.com/"
+2. Create a cypress.env.json file in the root of the project with the content bellow (input your usernames&passwords) and add it in the .gitignore so it wont be pushed on github
+
+"BASEURL" : ,
 "STANDARD_USER" : ,
 "PROBLEM_USER" : ,
 "LOCKED_USER" : ,
 "ERROR_USER" : ,
-"USER_PASSWORD" : 
-(this is the best practice for storing all the endpoints, usernames, password etc but I skipped this step and pushed my .env so you can run the code without needing to create file)
+"USER_PASSWORD" :
 
-3. Run the tests
+(this is the best practice and secure way for storing all the  usernames, passwords and endpoints. But since this is all publicly available and the environment is not internal, I skipped this step and pushed my .env so you can run the code without the need for creating a file)
+
+4. Run the tests
 ```bash
 npx cypress open
 OR
 npx cypress run --spec "cypress/tests/testCases.js" 
 ```
-If you choose the first option: click on E2E testing - choose browser - Start testing - click the file testCases.js
+If you choose npx cypress open (the first option): click on E2E testing - choose browser - Start testing - click the file testCases.js
 
-
+:) 
