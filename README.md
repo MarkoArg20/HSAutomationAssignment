@@ -1,4 +1,4 @@
-# AutomationAssignment
+# Automation Assignment
 A cypress automation framework with JavaScript and Page Object Model design pattern.
 
 INSTALLATION
