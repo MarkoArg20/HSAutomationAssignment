@@ -1,5 +1,5 @@
-# HSAutomationAssignment
-A cypress automation framework with JavaScript and Page Object Model deisgn pattern.
+# AutomationAssignment
+A cypress automation framework with JavaScript and Page Object Model design pattern.
 
 INSTALLATION
 
@@ -37,4 +37,3 @@ npx cypress run --spec "cypress/tests/testCases.js"
 ```
 If you choose npx cypress open (the first option): click on E2E testing - choose browser - Start testing - click the file testCases.js
 
-:) 
